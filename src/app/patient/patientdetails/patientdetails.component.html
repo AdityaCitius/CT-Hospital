@@ -1,0 +1,522 @@
+<!-- <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+    {{ !isLinear ? "Enable linear mode" : "Disable linear mode" }}
+  </button> -->
+  <mat-stepper [linear]="isLinear" #stepper>
+    <mat-step [stepControl]="firstFormGroup">
+      <div class="container">
+        <form [formGroup]="firstFormGroup" (ngSubmit)="onSubmit()">
+          <ng-template matStepLabel>Patient Details</ng-template>
+          <div class="row">
+            <div class="col">
+              <mat-label>Title </mat-label>
+              <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+              <mat-radio-group formControlName="title">
+                <mat-radio-button value="1" checked="true">Mr.</mat-radio-button>
+                <span>&nbsp;&nbsp;</span>
+                <mat-radio-button value="2">Ms.</mat-radio-button>
+                <span>&nbsp;&nbsp;</span>
+                <mat-radio-button value="3">Mrs.</mat-radio-button>
+                <span>&nbsp;&nbsp;</span>
+                <mat-radio-button value="4">Dr.</mat-radio-button>
+                <mat-error
+                  *ngIf="
+                    firstFormGroup.get('title')?.hasError('required') &&
+                    firstFormGroup.get('title')?.touched
+                  "
+                  >Title is a required field</mat-error
+                >
+              </mat-radio-group>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <mat-label>Gender</mat-label>
+              <span>&nbsp;&nbsp;</span>
+              <mat-radio-group formControlName="gender">
+                <mat-radio-button value="1">Male</mat-radio-button>
+                <span>&nbsp;&nbsp;</span>
+                <mat-radio-button value="2">Female</mat-radio-button>
+                <span>&nbsp;&nbsp;</span>
+                <mat-radio-button value="3" checked="true"
+                  >Other</mat-radio-button
+                >
+                <mat-error
+                  *ngIf="
+                    firstFormGroup.get('gender')?.hasError('required') &&
+                    firstFormGroup.get('gender')?.touched
+                  "
+                  >Gender is a required field</mat-error
+                >
+              </mat-radio-group>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <mat-form-field appearance="fill" class="example-full-width">
+                <mat-label>First name</mat-label>
+                <input
+                  matInput
+                  placeholder="First name"
+                  formControlName="firstName"
+                  required
+                />
+                <mat-error
+                  *ngIf="
+                    firstFormGroup.get('firstName')?.hasError('required') &&
+                    firstFormGroup.get('firstName')?.touched
+                  "
+                  >First name cannot be empty</mat-error
+                >
+                <mat-error
+                  *ngIf="
+                    firstFormGroup.get('firstName')?.hasError('minlength') &&
+                    firstFormGroup.get('firstName')?.touched
+                  "
+                  >Please don’t use abbreviations</mat-error
+                >
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field appearance="fill" class="example-full-width">
+                <mat-label>Last name</mat-label>
+                <input
+                  matInput
+                  placeholder="Last name"
+                  formControlName="lastName"
+                  required
+                />
+                <mat-error
+                  *ngIf="
+                    firstFormGroup.get('lastName')?.hasError('required') &&
+                    firstFormGroup.get('lastName')?.touched
+                  "
+                  >Last Name cannot be empty</mat-error
+                >
+                <mat-error
+                  *ngIf="
+                    firstFormGroup.get('lastName')?.hasError('minlength') &&
+                    firstFormGroup.get('lastName')?.touched
+                  "
+                  >Please don’t use abbreviations</mat-error
+                ></mat-form-field
+              >
+            </div>
+            <div class="col">
+              <mat-form-field appearance="fill" class="example-full-width">
+                <mat-label>Date Of Birth</mat-label>
+                <input
+                  matInput
+                  [max]="maxDate"
+                  [matDatepicker]="picker"
+                  formControlName="dateOfBirth"
+                  required
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error
+                  *ngIf="
+                    firstFormGroup.get('dateOfBirth')?.hasError('required') &&
+                    firstFormGroup.get('dateOfBirth')?.touched
+                  "
+                  >Please enter a valid date</mat-error
+                >
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field appearance="fill" class="example-full-width">
+                <mat-label>Age</mat-label>
+                <input matInput placeholder="Age" formControlName="age" />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-2 col-md-6 col-lg-3">
+              <mat-form-field appearance="fill">
+                <mat-label>Race</mat-label>
+                <input matInput placeholder="Race" formControlName="race" />
+                <mat-error
+                  *ngIf="
+                    firstFormGroup.get('race')?.hasError('required') &&
+                    firstFormGroup.get('race')?.touched
+                  "
+                  >Race field cannot be empty</mat-error
+                >
+                <mat-error
+                  *ngIf="
+                    firstFormGroup.get('race')?.hasError('minlength') &&
+                    firstFormGroup.get('race')?.touched
+                  "
+                  >Please don’t use abbreviations</mat-error
+                >
+                <mat-error
+                  *ngIf="
+                    firstFormGroup.get('race')?.hasError('maxlength') &&
+                    firstFormGroup.get('race')?.touched
+                  "
+                  >Maximum 50 Characters are allowed</mat-error
+                >
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field appearance="fill" class="example-full-width">
+                <mat-label>Ethnicity</mat-label>
+                <textarea
+                  matInput
+                  placeholder="Ethnicity"
+                  formControlName="ethnicity"
+                ></textarea>
+                <mat-error
+                  *ngIf="
+                    firstFormGroup.get('ethnicity')?.hasError('required') &&
+                    firstFormGroup.get('ethnicity')?.touched
+                  "
+                  >Ethnicity field cannot be empty</mat-error
+                >
+                <mat-error
+                  *ngIf="
+                    firstFormGroup.get('ethnicity')?.hasError('minlength') &&
+                    firstFormGroup.get('ethnicity')?.touched
+                  "
+                  >Please don’t use abbreviations</mat-error
+                >
+                <mat-error
+                  *ngIf="
+                    firstFormGroup.get('ethnicity')?.hasError('maxlength') &&
+                    firstFormGroup.get('ethnicity')?.touched
+                  "
+                  >Maximum 50 Characters are allowed</mat-error
+                >
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field appearance="fill" class="example-full-width">
+                <mat-label>Languages Known</mat-label>
+                <textarea
+                  matInput
+                  placeholder="Languages Known"
+                  formControlName="languagesKnown"
+                ></textarea>
+                <mat-error
+                  *ngIf="
+                    firstFormGroup.get('languagesKnown')?.hasError('required') &&
+                    firstFormGroup.get('languagesKnown')?.touched
+                  "
+                  >Languages Known cannot be empty</mat-error
+                >
+                <mat-error
+                  *ngIf="
+                    firstFormGroup.get('languagesKnown')?.hasError('minlength') &&
+                    firstFormGroup.get('languagesKnown')?.touched
+                  "
+                  >Please don’t use abbreviations</mat-error
+                >
+                <mat-error
+                  *ngIf="
+                    firstFormGroup.get('languagesKnown')?.hasError('maxlength') &&
+                    firstFormGroup.get('languagesKnown')?.touched
+                  "
+                  >Maximum 50 Characters are allowed</mat-error
+                ></mat-form-field
+              >
+            </div>
+            <div class="col">
+              <mat-form-field appearance="fill" class="example-full-width">
+                <mat-label>Email address</mat-label>
+                <input
+                  matInput
+                  placeholder="Ex. pat@example.com"
+                  formControlName="email"
+                />
+                <mat-error
+                  *ngIf="
+                    firstFormGroup.get('email')?.hasError('required') &&
+                    firstFormGroup.get('email')?.touched
+                  "
+                  >Please enter your email address e.g.
+                  exampleusername@xyzdomain,com</mat-error
+                >
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-2 col-md-6 col-lg-3">
+              <mat-form-field appearance="fill" class="example-full-width">
+                <mat-label>Home Address</mat-label>
+                <textarea
+                  matInput
+                  placeholder="Ex. 1 Main St, New York, NY"
+                  formControlName="address"
+                ></textarea>
+                <mat-error
+                  *ngIf="
+                    firstFormGroup.get('address')?.hasError('required') &&
+                    firstFormGroup.get('address')?.touched
+                  "
+                  >Please provide the postal address</mat-error
+                >
+                <mat-error
+                  *ngIf="
+                    firstFormGroup.get('address')?.hasError('minlength') &&
+                    firstFormGroup.get('address')?.touched
+                  "
+                  >Please provide the postal address</mat-error
+                ></mat-form-field
+              >
+            </div>
+            <div class="col">
+              <mat-form-field appearance="fill" class="example-full-width">
+                <mat-label>Country</mat-label>
+                <input
+                  matInput
+                  placeholder="Ex. San Francisco"
+                  formControlName="country"
+                />
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field appearance="fill" class="example-full-width">
+                <mat-label>State</mat-label>
+                <input
+                  matInput
+                  placeholder="Ex. California"
+                  formControlName="state"
+                />
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field appearance="fill" class="example-full-width">
+                <mat-label>Postal Code</mat-label>
+                <input
+                  matInput
+                  #postalCode
+                  placeholder="Ex. 94105"
+                  formControlName="postalCode"
+                  value="94043"
+                />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <mat-form-field appearance="fill">
+                <mat-label>Phone Number</mat-label>
+                <input
+                  matInput
+                  placeholder="999-777-2345"
+                  formControlName="phoneNumber"
+                />
+                <mat-error
+                  *ngIf="
+                    firstFormGroup.get('phoneNumber')?.hasError('required') &&
+                    firstFormGroup.get('phoneNumber')?.touched
+                  "
+                  >Please provide the telephone number</mat-error
+                >
+                <mat-error
+                  *ngIf="
+                    firstFormGroup.get('phoneNumber')?.hasError('minlength') &&
+                    firstFormGroup.get('phoneNumber')?.touched
+                  "
+                  >Please validate the phone number. Telephone number has XX
+                  number of digits</mat-error
+                >
+              </mat-form-field>
+            </div>
+          </div>
+          <div>
+            <button [disabled]="firstFormGroup.valid" mat-button matStepperNext>
+              Next
+            </button>
+          </div>
+        </form>
+      </div>
+    </mat-step>
+    <mat-step
+      [stepControl]="secondFormGroup"
+      label="Emergency Contact Information"
+    >
+      <div class="container">
+        <form [formGroup]="secondFormGroup">
+          <div class="row">
+            <div class="col-sm-2 col-md-4 col-lg-4">
+              <mat-form-field appearance="fill" class="example-full-width">
+                <mat-label>First name</mat-label>
+                <input
+                  matInput
+                  placeholder="First name"
+                  formControlName="firstName"
+                  required
+                />
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field appearance="fill" class="example-full-width">
+                <mat-label>Last name</mat-label>
+                <input
+                  matInput
+                  placeholder="Last name"
+                  formControlName="lastName"
+                  required
+                />
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field appearance="fill" class="example-full-width">
+                <mat-label>Relationship</mat-label>
+                <mat-select formControlName="relationship">
+                  <mat-option value="one">Father</mat-option>
+                  <mat-option value="two">Mother</mat-option>
+                  <mat-option value="two">Sibiling</mat-option>
+                  <mat-option value="two">Spouse</mat-option>
+                  <mat-option value="two">Friend</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-2 col-md-6 col-lg-3">
+              <mat-form-field appearance="fill" class="example-full-width">
+                <mat-label>Email address</mat-label>
+                <input
+                  matInput
+                  placeholder="Ex. pat@example.com"
+                  formControlName="email"
+                />
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field appearance="fill">
+                <mat-label>Phone Number</mat-label>
+                <input matInput placeholder="999-777-2345" />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-2 col-md-6 col-lg-3">
+              <mat-form-field appearance="fill" class="example-full-width">
+                <mat-label>Home Address</mat-label>
+                <textarea
+                  matInput
+                  placeholder="Ex. 1 Main St, New York, NY"
+                ></textarea>
+                <mat-error
+                  *ngIf="
+                    firstFormGroup.get('address')?.hasError('required') &&
+                    firstFormGroup.get('address')?.touched
+                  "
+                  >Please provide the postal address</mat-error
+                >
+                <mat-error
+                  *ngIf="
+                    firstFormGroup.get('address')?.hasError('minlength') &&
+                    firstFormGroup.get('address')?.touched
+                  "
+                  >Please provide the postal address</mat-error
+                ></mat-form-field
+              >
+            </div>
+            <div class="col">
+              <mat-form-field appearance="fill" class="example-full-width">
+                <mat-label>Country</mat-label>
+                <input matInput placeholder="Ex. San Francisco" />
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field appearance="fill" class="example-full-width">
+                <mat-label>State</mat-label>
+                <input matInput placeholder="Ex. California" />
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field appearance="fill" class="example-full-width">
+                <mat-label>Postal Code</mat-label>
+                <input
+                  matInput
+                  #postalCode
+                  placeholder="Ex. 94105"
+                  value="94043"
+                />
+              </mat-form-field>
+            </div>
+          </div>
+          <section class="example-section">
+            <mat-checkbox class="example-margin"
+              >Same as Patient's Address</mat-checkbox
+            >
+          </section>
+          <br />
+          <mat-label>Do you need access to patient portal?</mat-label>
+          <mat-radio-group>
+            <mat-radio-button value="1">Yes</mat-radio-button>
+            <mat-radio-button value="2" checked="true">No</mat-radio-button>
+          </mat-radio-group>
+          <br />
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </div>
+    </mat-step>
+    <mat-step [stepControl]="thirdFormGroup" label="Allergic Details">
+      <form [formGroup]="thirdFormGroup">
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-label>Does Patient have any known allergies?</mat-label>
+              <span>&nbsp;&nbsp;</span>
+              <mat-radio-group>
+                <mat-radio-button value="1">Yes</mat-radio-button>
+                <span>&nbsp;&nbsp;</span>
+                <mat-radio-button value="2" checked="true">No</mat-radio-button>
+              </mat-radio-group>
+            </mat-expansion-panel-header>
+            <ng-template matExpansionPanelContent>
+              <mat-form-field appearance="fill" class="example-full-width">
+                <mat-label>Allergy ID</mat-label>
+                <input
+                  matInput
+                  placeholder="Enter WHO/IUIS Allergen Nomenclature ID, if known"
+                />
+              </mat-form-field>
+              <mat-form-field appearance="fill" class="example-full-width">
+                <mat-label>Allergy Type</mat-label>
+                <mat-select>
+                  <mat-option value="one">Food</mat-option>
+                  <mat-option value="two">Drugs</mat-option>
+                  <mat-option value="two">Environment</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="fill" class="example-full-width">
+                <mat-label>Allergy Name</mat-label>
+                <input matInput placeholder="Allergy name" />
+              </mat-form-field>
+              <mat-form-field appearance="fill" class="example-full-width">
+                <mat-label>Allergy Description</mat-label>
+                <input matInput placeholder="Allergy Description" />
+              </mat-form-field>
+              <mat-form-field appearance="fill" class="example-full-width">
+                <mat-label>Allergy Clinical Information</mat-label>
+                <input matInput placeholder="Allergy Clinical Information" />
+              </mat-form-field>
+              <mat-label>Is allergy fatal?</mat-label>
+              <span>&nbsp;&nbsp;</span>
+              <mat-radio-group>
+                <mat-radio-button value="1">Yes</mat-radio-button>
+                <span>&nbsp;&nbsp;</span>
+                <mat-radio-button value="2" checked="true">No</mat-radio-button>
+              </mat-radio-group>
+              <br />
+            </ng-template>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button (click)="stepper.reset()">Reset</button>
+        </div>
+      </form>
+    </mat-step>
+  </mat-stepper>

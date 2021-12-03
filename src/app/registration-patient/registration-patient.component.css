@@ -1,0 +1,89 @@
+.mt10 {
+    margin-top: 10px!important
+    }
+    .form-check-inline {
+    margin-bottom: 12px;
+    }
+    .gradient-custom {
+    
+    
+    
+    /* fallback for old browsers */
+    
+    
+/*     
+    background: #c3dfe4; */
+    
+    
+    
+    }
+    
+    
+    
+    .card {
+    background:white;
+   
+    
+    }
+    
+    
+    
+    .card-registration .select-input.form-control[readonly]:not([disabled]) {
+    
+    
+    
+    font-size: 1rem;
+    
+    
+    
+    line-height: 2.15;
+    
+    
+    
+    padding-left: .75em;
+    
+    
+    
+    padding-right: .75em;
+    
+    
+    
+    }
+    
+    
+    
+    .card-registration .select-arrow {
+    
+    
+    
+    top: 13px;
+    
+    
+    
+    }
+  
+    .mat-radio-button ~ .mat-radio-button {
+      margin-left: 14px;
+    }
+  
+    
+    .example-form {
+      min-width: 150px;
+      max-width: 500px;
+      width: 90%;
+    }
+    
+    .example-full-width {
+      width: 100%;
+    }
+  
+    section
+    {
+      background-image: url("../../assets/bg2-home.jfif");
+      align-items: center;
+      height: 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      height: 100%;
+    }
